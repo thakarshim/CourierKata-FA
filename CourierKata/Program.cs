@@ -10,7 +10,7 @@ namespace CourierKata
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Courier Kata");
-            Console.WriteLine("Add Parcel Details");
+            Console.WriteLine("Please Add Your Parcel Details");
             Courier courier = new Courier();
             AddParcelDetail(courier);
             CalculateDiscount(courier);
@@ -25,19 +25,19 @@ namespace CourierKata
             {
                 CourierKata model = new CourierKata();
                 #region Input Parcel Detail
-                Console.Write("Enter Height : ");
+                Console.Write("Please Enter Parcel Height: ");
 
                 decimal.TryParse(Console.ReadLine(), NumberStyles.AllowDecimalPoint, CultureInfo.DefaultThreadCurrentCulture, out decimal height);
                 model.Height = height;
-                Console.Write("Enter Width : ");
+                Console.Write("Please Enter Parcel Width: ");
                 decimal.TryParse(Console.ReadLine(), NumberStyles.AllowDecimalPoint, CultureInfo.DefaultThreadCurrentCulture, out decimal width);
                 model.Width = width;
 
-                Console.Write("Enter Length : ");
+                Console.Write("Please Enter Parcel Length: ");
                 decimal.TryParse(Console.ReadLine(), NumberStyles.AllowDecimalPoint, CultureInfo.DefaultThreadCurrentCulture, out decimal length);
                 model.Length = length;
 
-                Console.Write("Enter Parcel Weight(kg) : ");
+                Console.Write("Please Enter Parcel Weight(kg): ");
                 decimal.TryParse(Console.ReadLine(), NumberStyles.AllowDecimalPoint, CultureInfo.DefaultThreadCurrentCulture, out decimal weight);
                 model.Weight = weight;
                 if (model.Weight > 15)
@@ -162,17 +162,17 @@ namespace CourierKata
             #endregion
             courier.TotalCost = courier.CourierKataList.Sum(x => x.TotalPrice) - courier.Discount.Amount;
             Console.WriteLine("\t\t\t\t\t\t\t{0}\t-${1}", courier.Discount.DiscountText, courier.Discount.Amount);
-            Console.WriteLine("\t\t\t\t\t\t\t{0}\t${1}", "Total Cost ", courier.TotalCost);
+            Console.WriteLine("\t\t\t\t\t\t\t{0}\t${1}", "Total Shipping Cost ", courier.TotalCost);
         }
 
         private static void SpeedShipping(Courier courier)
         {
             #region Speed Shipping
-            Console.WriteLine("Do You Want Speed Shipping (Y/N)? ");
+            Console.WriteLine("Do You Want Speedy Shipping (Y/N)? ");
             string AddSpeedShipping = Console.ReadLine();
             if (AddSpeedShipping.Trim().ToLower() == "y")
             {
-                courier.ShippingSpeed.ShipSpeed = "Speedy shipping Charge";
+                courier.ShippingSpeed.ShipSpeed = "Speedy shipping Charges";
                 courier.ShippingSpeed.Cost = courier.TotalCost;
                 courier.TotalCost = (courier.TotalCost * 2);
                 Console.WriteLine("Height\tWidth\tLength\tText\t\tPrice\tOver Weigth Charge\tTotal Price");
@@ -183,7 +183,7 @@ namespace CourierKata
                 }
                 Console.WriteLine("\t\t\t\t\t\t\t{0}\t-${1}", courier.Discount.DiscountText, courier.Discount.Amount);
                 Console.WriteLine("\t\t\t\t\t\t{0}\t${1}", courier.ShippingSpeed.ShipSpeed, courier.ShippingSpeed.Cost);
-                Console.WriteLine("\t\t\t\t\t\t\t{0}\t${1}", "Total Cost ", courier.TotalCost);
+                Console.WriteLine("\t\t\t\t\t\t\t{0}\t${1}", "Total Shipping Cost ", courier.TotalCost);
 
             }
             #endregion
