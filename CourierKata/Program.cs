@@ -14,6 +14,7 @@ namespace CourierKata
             Courier courier = new Courier();
             AddParcelDetail(courier);
             CalculateDiscount(courier);
+            SpeedShipping(courier);
             Console.ReadKey();
         }
 
@@ -94,7 +95,9 @@ namespace CourierKata
             }
             while (AddMoreParcel.Trim().ToLower() == "y");
             Console.WriteLine("Parcel List");
+            Console.WriteLine("-----------------------------------------------------------------------------------");
             Console.WriteLine("Height\tWidth\tLength\tText\t\tPrice\tOver Weigth Charge\tTotal Price");
+            Console.WriteLine("-----------------------------------------------------------------------------------");
             foreach (CourierKata obj in courier.CourierKataList)
             {
                 Console.WriteLine("{0}\t{1}\t{2}\t{3}\t${4}\t${5}\t\t\t${6}", obj.Height, obj.Width, obj.Length, obj.Text, obj.Price, obj.OverWeightCharge, obj.TotalPrice);
@@ -157,8 +160,33 @@ namespace CourierKata
                 }
             }
             #endregion
+            courier.TotalCost = courier.CourierKataList.Sum(x => x.TotalPrice) - courier.Discount.Amount;
+            Console.WriteLine("\t\t\t\t\t\t\t{0}\t-${1}", courier.Discount.DiscountText, courier.Discount.Amount);
+            Console.WriteLine("\t\t\t\t\t\t\t{0}\t${1}", "Total Cost ", courier.TotalCost);
         }
 
-       
+        private static void SpeedShipping(Courier courier)
+        {
+            #region Speed Shipping
+            Console.WriteLine("Do You Want Speed Shipping (Y/N)? ");
+            string AddSpeedShipping = Console.ReadLine();
+            if (AddSpeedShipping.Trim().ToLower() == "y")
+            {
+                courier.ShippingSpeed.ShipSpeed = "Speedy shipping Charge";
+                courier.ShippingSpeed.Cost = courier.TotalCost;
+                courier.TotalCost = (courier.TotalCost * 2);
+                Console.WriteLine("Height\tWidth\tLength\tText\t\tPrice\tOver Weigth Charge\tTotal Price");
+                Console.WriteLine("-----------------------------------------------------------------------------------");
+                foreach (CourierKata obj in courier.CourierKataList)
+                {
+                    Console.WriteLine("{0}\t{1}\t{2}\t{3}\t${4}\t${5}\t\t\t${6}", obj.Height, obj.Width, obj.Length, obj.Text, obj.Price, obj.OverWeightCharge, obj.TotalPrice);
+                }
+                Console.WriteLine("\t\t\t\t\t\t\t{0}\t-${1}", courier.Discount.DiscountText, courier.Discount.Amount);
+                Console.WriteLine("\t\t\t\t\t\t{0}\t${1}", courier.ShippingSpeed.ShipSpeed, courier.ShippingSpeed.Cost);
+                Console.WriteLine("\t\t\t\t\t\t\t{0}\t${1}", "Total Cost ", courier.TotalCost);
+
+            }
+            #endregion
+        }
     }
 }
